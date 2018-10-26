@@ -1,5 +1,5 @@
 require('dotenv').config()
-const bch = require('bitcoincashjs')
+const bch = require('bitcore-lib')
 const RpcClient = require('bitcoind-rpc');
 var fromHash = function(hash, config) {
   let c;
@@ -61,7 +61,7 @@ var fromTx = function(transaction, options) {
             h: input.prevTxId.toString('hex'),
             i: input.outputIndex
           }
-          let address = input.script.toAddress(bch.Networks.livenet).toString(bch.Address.CashAddrFormat).split(':')[1];
+          let address = input.script.toAddress(bch.Networks.livenet).toString();
           if (address && address.length > 0) {
             sender.a = address;
           }
@@ -97,7 +97,7 @@ var fromTx = function(transaction, options) {
             v: output.satoshis,
             i: output_index
           }
-          let address = output.script.toAddress(bch.Networks.livenet).toString(bch.Address.CashAddrFormat).split(':')[1];
+          let address = output.script.toAddress(bch.Networks.livenet).toString();
           if (address && address.length > 0) {
             receiver.a = address;
           }
